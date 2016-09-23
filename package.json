@@ -2,14 +2,20 @@
   "name": "awesome-cytoscape",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "start": "npm run dev",
     "dev": "webpack-dev-server --inline --hot --open",
     "build": "webpack --progress"
   },
-  "keywords": [],
-  "author": "Taehyun Kim",
+  "bugs": {
+    "email": "kgyoo8232@gmail.com"
+  },
+  "keywords": ["network", "d3", "cytoscape", "graph", "visualization", "svg", "canvas"],
+  "author": {
+    "name": "Taehyun Kim",
+    "email": "kgyoo8232@gmail.com",
+    "url": "https://github.com/kimxogus"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.14.0",
