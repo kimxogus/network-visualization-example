@@ -1,0 +1,41 @@
+{
+  "name": "awesome-cytoscape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "webpack-dev-server --inline --hot --open",
+    "build": "webpack --progress"
+  },
+  "keywords": [],
+  "author": "Taehyun Kim",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.14.0",
+    "clean-webpack-plugin": "^0.1.10",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.22.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "cytoscape": "^2.7.9",
+    "d3": "^4.2.6",
+    "d3-collection": "^1.0.1",
+    "d3-dispatch": "^1.0.1",
+    "d3-force": "^1.0.2",
+    "d3-quadtree": "^1.0.1",
+    "d3-timer": "^1.0.3",
+    "d3-tip": "^0.7.1",
+    "jquery": "^3.1.1",
+    "lodash": "^4.16.1"
+  }
+}
