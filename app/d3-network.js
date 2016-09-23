@@ -8,6 +8,12 @@ import 'd3-dispatch'
 import 'd3-quadtree'
 import 'd3-timer'
 import 'd3-force'
+import 'd3-color'
+import 'd3-ease'
+import 'd3-selection'
+import 'd3-transition'
+import 'd3-drag'
+import 'd3-zoom'
 import d3tip from 'd3-tip'
 
 import genData from './data'
@@ -29,8 +35,8 @@ let color = d3.scaleOrdinal(d3.schemeCategory20);
 $(window).on("resize", resize);
 
 function resize() {
-    let width = container.width(),
-        height = container.height();
+    width = container.width();
+    height = container.height();
 
     svg.attr("width", width);
     svg.attr("height", height);
@@ -46,6 +52,7 @@ $("#draw").click(()=>{
 function drawNetwork(numData) {
     resize();
 
+    // Generate Data
     let data = genData(numData);
 
     simulation = d3.forceSimulation(data.nodes)
@@ -54,13 +61,24 @@ function drawNetwork(numData) {
         .force("link", d3.forceLink(data.edges))
         .on('tick', ticked);
 
+    let g = svg.append("g").attr("transform", "translate(5,5) scale(1)");
+
+    // Zoom
+    let zoom = d3.zoom()
+        .scaleExtent([0.01, 10])
+        .on("zoom", ()=>{
+            g.attr("transform", d3.event.transform);
+        });
+    svg.call( zoom);
+    zoom.translateBy(g, 5, 5);
+
 
     // Edge Tooltip
     let edgeTooltip = d3tip()
         .attr("class", "d3-tip")
         .html((d)=>d.source.id + " > " + d.target.id + "<br/>" + d.value);
 
-    let edge = svg.append("g")
+    let edge = g.append("g")
         .attr("class", "edges")
         .selectAll("line")
         .data(data.edges)
@@ -74,7 +92,7 @@ function drawNetwork(numData) {
         .attr("class", "d3-tip")
         .html((d)=>d.id);
 
-    let node = svg.append("g")
+    let node = g.append("g")
         .attr("class", "nodes")
         .selectAll("circle")
         .data(data.nodes)
