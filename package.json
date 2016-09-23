@@ -8,7 +8,12 @@
     "build": "webpack --progress"
   },
   "bugs": {
+    "url": "https://github.com/kimxogus/network-visualization-example",
     "email": "kgyoo8232@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimxogus/network-visualization-example.git"
   },
   "keywords": ["network", "d3", "cytoscape", "graph", "visualization", "svg", "canvas"],
   "author": {
