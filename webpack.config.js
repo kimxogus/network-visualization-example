@@ -69,7 +69,7 @@ module.exports = {
             'jQuery'            : 'jquery',
             'window.jQuery'     : 'jquery',
             'd3'                : 'd3',
-            'cytoscape'         : 'cytoscape'
+            'window.cytoscape'  : 'cytoscape'
         }),
 
         new CommonsChunkPlugin({
