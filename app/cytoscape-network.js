@@ -4,52 +4,80 @@
 import './common'
 
 import cytoscape from 'cytoscape'
-import 'cytoscape-qtip'
-import 'cytoscape-panzoom'
+import 'cytoscape-spread/src'
+import 'cytoscape-cose-bilkent/src'
+import 'cytoscape-ngraph.forcelayout/src'
+
 
 import genData from './data'
 
 
 let cy;
-let data;
 
 let color = d3.scaleOrdinal(d3.schemeCategory20);
 
+const
+    FORCE_LAYOUT    = 'cytoscape-ngraph.forcelayout',
+    SPREAD_LAYOUT   = 'spread',
+    COSE_BILKENT_LAYOUT = 'cose-bilkent';
+
+let layouts = {
+    [FORCE_LAYOUT]: {
+        name: FORCE_LAYOUT,
+        springLength: 150,
+        springCoeff: 0.0001,
+        gravity: -10
+    },
+    [SPREAD_LAYOUT]: {
+        name: SPREAD_LAYOUT,
+        idealEdgeLength: 150
+    },
+    [COSE_BILKENT_LAYOUT]: {
+        name: COSE_BILKENT_LAYOUT,
+        idealEdgeLength: 150
+    }
+};
+
 
 $("#draw").click(()=>{
-    data = genData($("#num-elements").val() || 100);
+    let numElems = $("#num-elements").val() || 100;
+    let data = genData(numElems);
+    let nodeSize = 2000 / numElems || 2;
 
     let option = {
         container: $("#network-container"),
 
-        layout: {
-            name: "spread",
-            idealEdgeLength: 150
-        },
+        layout: layouts[SPREAD_LAYOUT], // You can also put FORCE_LAYOUT or COSE_BILKENT_LAYOUT.
 
-        styles: [{
+        style: [{
             selector: 'node',
             style: {
                 'label': 'data(id)',
 
                 'background-color': (node)=>color(node.data("group")),
+                'width': nodeSize,
+                'height': nodeSize,
+                'border-width': nodeSize/10,
 
-                'text-outline-width': 2,
+                'font-size': nodeSize/3,
+                'text-outline-width': 1,
                 'text-outline-color': "#ddd",
-                'text-outline-opacity': 0.7
+                'text-outline-opacity': 0.5
             }
         }, {
             selector: 'edge',
             style: {
                 'label': 'data(value)',
 
+                'width': nodeSize/10,
                 'curve-style': 'bezier',
 
                 'edge-text-rotation': 'autorotate',
 
-                'text-outline-width': 2,
+                'font-size': nodeSize/5,
+                'text-outline-width': 1,
                 'text-outline-color': "#ddd",
-                'text-outline-opacity': 0.7
+                'text-outline-opacity': 0.5
             }
         }],
 
@@ -73,25 +101,12 @@ $("#draw").click(()=>{
     }
 });
 
+$(window).resize(()=>{
+    cy && cy.resize();
+});
+
 function drawNetwork(option) {
     cy = cytoscape(option);
-
-    cy.panzoom();
-
-    cy.nodes().qtip({
-        content: 'data(id)',
-        position: {
-            my: 'top center',
-            at: 'bottom center'
-        }
-    });
-    cy.edges().qtip({
-        content: (edge)=>edge.data("source") + " > " + edge.data("target") + "<br/>" + edge.data("value"),
-        positoin: {
-            my: 'top center',
-            at: 'bottom center'
-        }
-    });
 }
 
 function redrawNetwork(option) {
