@@ -16,6 +16,11 @@ let cy;
 
 let color = d3.scaleOrdinal(d3.schemeCategory20);
 
+
+// Sample Layouts
+// refer to http://js.cytoscape.org/#extensions/layout-extensions
+// Computing layout is very resource consuming process.
+// Be careful to use 'cose-bilkent'. It takes a long time to draw thousands of elements.
 const
     FORCE_LAYOUT    = 'cytoscape-ngraph.forcelayout',
     SPREAD_LAYOUT   = 'spread',
@@ -94,6 +99,9 @@ $("#draw").click(()=>{
         }
     };
 
+    // cytoscape should not be cleared for redrawing
+    // If it's cleared and redrawn, its extension libraries may cause problems.
+    // Such as cytoscape-redo-undo and so on...
     if(cy) {
         redrawNetwork(option);
     } else {
@@ -101,6 +109,7 @@ $("#draw").click(()=>{
     }
 });
 
+// resize canvas
 $(window).resize(()=>{
     cy && cy.resize();
 });
@@ -112,5 +121,5 @@ function drawNetwork(option) {
 function redrawNetwork(option) {
     cy.elements().remove();
     cy.add(option.elements);
-    cy.layout(option.layout);
+    cy.layout(option.layout); // this triggers redrawing. Be careful for the order of commands.
 }

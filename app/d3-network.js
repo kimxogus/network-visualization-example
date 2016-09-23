@@ -31,7 +31,7 @@ let svg;
 let color = d3.scaleOrdinal(d3.schemeCategory20);
 
 
-
+// resized svg
 $(window).on("resize", resize);
 
 function resize() {
@@ -42,6 +42,7 @@ function resize() {
     svg.attr("height", height);
 }
 
+// clear svg and redraw
 $("#draw").click(()=>{
     container.empty();
     svg = d3.select("#network-container")
@@ -55,6 +56,7 @@ function drawNetwork(numData) {
     // Generate Data
     let data = genData(numData);
 
+    // Simulate data
     simulation = d3.forceSimulation(data.nodes)
         .force("center", d3.forceCenter(width / 2, height / 2))
         .force("charge", d3.forceManyBody())
@@ -63,14 +65,13 @@ function drawNetwork(numData) {
 
     let g = svg.append("g").attr("transform", "translate(5,5) scale(1)");
 
-    // Zoom
+    // Zoom behavior
     let zoom = d3.zoom()
         .scaleExtent([0.01, 10])
         .on("zoom", ()=>{
             g.attr("transform", d3.event.transform);
         });
     svg.call( zoom);
-    zoom.translateBy(g, 5, 5);
 
 
     // Edge Tooltip
@@ -86,6 +87,7 @@ function drawNetwork(numData) {
         .call(edgeTooltip)
         .on("mouseover", edgeTooltip.show)
         .on("mouseout", edgeTooltip.hide);
+
 
     // Node Tooltip
     let nodeTooltip = d3tip()
@@ -107,8 +109,10 @@ function drawNetwork(numData) {
         .on("mouseover", nodeTooltip.show)
         .on("mouseout", nodeTooltip.hide);
 
+
     node.append("title")
         .text((d)=>d.id);
+
 
     simulation
         .nodes(data.nodes)
