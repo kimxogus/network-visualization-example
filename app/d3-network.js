@@ -16,7 +16,7 @@ import 'd3-drag'
 import 'd3-zoom'
 import d3tip from 'd3-tip'
 
-import genData from './data'
+import {genData, miserables} from './data'
 
 
 let container = $("#network-container").empty(),

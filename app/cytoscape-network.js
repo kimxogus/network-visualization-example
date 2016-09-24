@@ -4,12 +4,14 @@
 import './common'
 
 import cytoscape from 'cytoscape'
-import 'cytoscape-spread/src'
-import 'cytoscape-cose-bilkent/src'
-import 'cytoscape-ngraph.forcelayout/src'
+import spread from 'cytoscape-spread/src'
+import coseBilkent from 'cytoscape-cose-bilkent/src'
+
+spread(cytoscape);
+coseBilkent(cytoscape);
 
 
-import genData from './data'
+import { genData, miserables } from './data'
 
 let container = $("#network-container");
 let width, height;
@@ -26,17 +28,10 @@ let color = d3.scaleOrdinal(d3.schemeCategory20);
 // Computing layout is very resource consuming process.
 // Be careful to use 'cose-bilkent'. It takes a long time to draw thousands of elements.
 const
-    FORCE_LAYOUT    = 'cytoscape-ngraph.forcelayout',
     SPREAD_LAYOUT   = 'spread',
     COSE_BILKENT_LAYOUT = 'cose-bilkent';
 
 let layouts = {
-    [FORCE_LAYOUT]: {
-        name: FORCE_LAYOUT,
-        springLength: 150,
-        springCoeff: 0.0001,
-        gravity: -10
-    },
     [SPREAD_LAYOUT]: {
         name: SPREAD_LAYOUT,
         idealEdgeLength: 150
