@@ -80,22 +80,22 @@ module.exports = {
 
         new HtmlWebpackPlugin({
             inject: 'body',
-            title: "Awesome Cytoscape",
+            title: "Network Visualization Examples",
             filename: "index.html",
-            template: "./html/index.html",
+            template: "./html/index.ejs",
             edges: ['css/style.css'],
             chunks: ["vendor", "main"]
         }),
         new HtmlWebpackPlugin({
-            title: "Awesome Cytoscape - d3",
+            title: "d3 - Network Visualization Examples",
             filename: "d3.html",
-            template: "./html/network.html",
+            template: "./html/network.ejs",
             chunks: ["vendor", "d3-network"]
         }),
         new HtmlWebpackPlugin({
-            title: "Awesome Cytoscape - cytoscape",
+            title: "cytoscape - Network Visualization Examples",
             filename: "cytoscape.html",
-            template: "./html/network.html",
+            template: "./html/network.ejs",
             chunks: ["vendor", "cytoscape-network"]
         }),
 
