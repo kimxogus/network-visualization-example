@@ -8,7 +8,7 @@
     "build": "webpack --progress"
   },
   "bugs": {
-    "url": "https://github.com/kimxogus/network-visualization-example",
+    "url": "https://github.com/kimxogus/network-visualization-example/issues",
     "email": "kgyoo8232@gmail.com"
   },
   "repository": {
