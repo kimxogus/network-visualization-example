@@ -28,7 +28,6 @@ import _ from "lodash"
   }
   ////////////
  */
-
 export function genData(num) {
     let nodes = [],
         edges = [];
@@ -65,6 +64,9 @@ export function genData(num) {
     }
 }
 
+
+// Data from
+// https://bl.ocks.org/mbostock/4062045
 export const miserables = {
     nodes: [
         {"id": "Myriel", "group": 1},

@@ -34,7 +34,7 @@ const
 let layouts = {
     [SPREAD_LAYOUT]: {
         name: SPREAD_LAYOUT,
-        idealEdgeLength: 150
+        idealEdgeLength: 100
     },
     [COSE_BILKENT_LAYOUT]: {
         name: COSE_BILKENT_LAYOUT,
@@ -44,8 +44,34 @@ let layouts = {
 
 
 $("#draw").click(()=>{
-    let numElems = $("#num-elements").val() || 100;
-    let data = genData(numElems);
+    let numElems;
+    let data;
+
+    switch ($("input[name='dataset']:checked").val())
+    {
+        case 'miserables':
+            data = miserables;
+            miserables.edges = miserables.edges.map(edge=>{
+                edge.id = edge.source + "_" + edge.target;
+                return edge;
+            });
+            numElems = miserables.nodes.length + miserables.edges.length;
+            $("#num-elements").val(numElems);
+            break;
+        case 'generate':
+            numElems = $("#num-elements").val() || 100;
+            data = genData(numElems);
+            data.edges = data.edges.map(edge=>{
+                edge.source = edge.source.id;
+                edge.target = edge.target.id;
+                edge.id = edge.source + "_" + edge.target;
+                return edge;
+            });
+            break;
+    }
+
+    console.log(data);
+
     let nodeSize = 2000 / numElems || 2;
 
     let option = {
@@ -90,9 +116,6 @@ $("#draw").click(()=>{
                 return {data: node};
             }),
             edges: data.edges.map(edge=>{
-                edge.source = edge.source.id;
-                edge.target = edge.target.id;
-                edge.id = edge.source + "_" + edge.target;
                 return {data: edge};
             })
         }
