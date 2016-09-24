@@ -3,6 +3,8 @@
  */
 import './common'
 
+import _ from 'lodash'
+
 import 'd3-collection'
 import 'd3-dispatch'
 import 'd3-quadtree'
@@ -51,14 +53,35 @@ $("#draw").click(()=>{
     container.empty();
     svg = d3.select("#network-container")
         .append("svg");
-    drawNetwork($("#num-elements").val());
+
+    let numElems;
+    let data;
+
+    switch ($("input[name='dataset']:checked").val())
+    {
+        case 'miserables':
+            data = Object.assign({}, miserables);
+            data.edges = data.edges.map(edge=>{
+                if(typeof edge.source !== "object")
+                    edge.source = _.find(miserables.nodes, (node)=>edge.source===node.id);
+                if(typeof edge.target !== "object")
+                    edge.target = _.find(miserables.nodes, (node)=>edge.target===node.id);
+                return edge;
+            });
+            numElems = miserables.nodes.length + miserables.edges.length;
+            $("#num-elements").val(numElems);
+            break;
+        case 'generate':
+            numElems = $("#num-elements").val() || 100;
+            data = genData(numElems);
+            break;
+    }
+
+    drawNetwork(data);
 });
 
-function drawNetwork(numData) {
+function drawNetwork(data) {
     resize();
-
-    // Generate Data
-    let data = genData(numData);
 
     // Simulate data
     simulation = d3.forceSimulation(data.nodes)
