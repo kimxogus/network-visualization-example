@@ -23,8 +23,7 @@ let container = $("#network-container").empty(),
     simulation;
 
 
-let width = container.width(),
-    height = container.height();
+let width, height;
 
 let svg;
 
@@ -32,14 +31,19 @@ let color = d3.scaleOrdinal(d3.schemeCategory20);
 
 
 // resized svg
+resize();
 $(window).on("resize", resize);
 
 function resize() {
+    container.width($("#header").width());
+
     width = container.width();
     height = container.height();
 
-    svg.attr("width", width);
-    svg.attr("height", height);
+    if(svg) {
+        svg.attr("width", width);
+        svg.attr("height", height);
+    }
 }
 
 // clear svg and redraw

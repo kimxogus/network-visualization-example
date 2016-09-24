@@ -11,8 +11,12 @@ import 'cytoscape-ngraph.forcelayout/src'
 
 import genData from './data'
 
+let container = $("#network-container");
+let width, height;
 
 let cy;
+
+resize();
 
 let color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -50,7 +54,7 @@ $("#draw").click(()=>{
     let nodeSize = 2000 / numElems || 2;
 
     let option = {
-        container: $("#network-container"),
+        container: container,
 
         layout: layouts[SPREAD_LAYOUT], // You can also put FORCE_LAYOUT or COSE_BILKENT_LAYOUT.
 
@@ -110,9 +114,18 @@ $("#draw").click(()=>{
 });
 
 // resize canvas
-$(window).resize(()=>{
-    cy && cy.resize();
-});
+$(window).resize(resize);
+
+function resize() {
+    container.width($("#header").width());
+
+    width = container.width();
+    height = container.height();
+
+    if(cy) {
+        cy && cy.resize();
+    }
+}
 
 function drawNetwork(option) {
     cy = cytoscape(option);
