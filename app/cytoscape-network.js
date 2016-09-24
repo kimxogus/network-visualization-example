@@ -42,6 +42,12 @@ let layouts = {
     }
 };
 
+$("#additional-options").html(
+    "Layout&nbsp" +
+    "<select id='layout-type'>" +
+    Object.keys(layouts).map((layout)=>"<option value='" + layout+ "'>" + layout + "</option>") +
+    "</select>");
+
 
 $("#draw").click(()=>{
     let numElems;
@@ -70,14 +76,12 @@ $("#draw").click(()=>{
             break;
     }
 
-    console.log(data);
-
     let nodeSize = 2000 / numElems || 2;
 
     let option = {
         container: container,
 
-        layout: layouts[SPREAD_LAYOUT], // You can also put FORCE_LAYOUT or COSE_BILKENT_LAYOUT.
+        layout: layouts[$("#additional-options").find("select").val()], // You can also put FORCE_LAYOUT or COSE_BILKENT_LAYOUT.
 
         style: [{
             selector: 'node',
