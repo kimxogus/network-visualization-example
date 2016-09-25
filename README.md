@@ -1,10 +1,21 @@
 # network-visualization-example
 
-##Description
-Examples of network visualization using [d3](https://github.com/d3/d3) and [cytoscape](https://github.com/cytoscape/cytoscape.js).
+## Description
+Examples of network visualization using [d3.js](https://github.com/d3/d3) and [cytoscape.js](https://github.com/cytoscape/cytoscape.js).
 
-##Quick start
-**Make sure you have Node.js
+### Example Website
+https://kimxogus.github.io/network-visualization-example
+
+### D3
+<img src="https://kimxogus.github.io/network-visualization-example/img/d3_miserables.jpg" width="48%"/>
+<img src="https://kimxogus.github.io/network-visualization-example/img/d3_generated.jpg" width="48%"/>
+
+### Cytoscape
+<img src="https://kimxogus.github.io/network-visualization-example/img/cytoscape_miserables.jpg" width="48%"/>
+<img src="https://kimxogus.github.io/network-visualization-example/img/cytoscape_generated.jpg" width="48%"/>
+
+## Quick start
+#### Make sure you have Node.js
 
 ```bash
 
@@ -18,6 +29,23 @@ npm install
 npm start
 ```
 
-##Example Website
-https://kimxogus.github.io/network-visualization-example
+## Comparison between d3 and cytoscape
+### D3.js
+* Strength
+ 1. A lot of references.
+ 2. Various libraries and modules.
+* Weakness
+ 1. Learning curve.
+ 2. Complex code.
 
+### Cytoscape.js
+* Strength
+ 1. Easy to use. Much less code compared to d3
+ 2. Able to handle thousands of objects. (Because it's based on HTML canvas)
+ 3. Useful extensions. (http://js.cytoscape.org/#extensions)
+* Weakness
+ 1. Hard to use with webpack.
+    (So I couldn't add other cytoscape ui extensions in this example)
+
+## License
+MIT
