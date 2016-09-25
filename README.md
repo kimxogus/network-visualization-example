@@ -45,7 +45,7 @@ npm start
  2. Able to handle thousands of objects. (Because it's based on HTML canvas)
  3. Free to move objects.
 * Weakness
- 1. Hard to use with webpack.
+ 1. Errors with webpack.
     (So I couldn't add other cytoscape ui extensions in this example)
  2. Less libraries and modules compared to d3.
 
